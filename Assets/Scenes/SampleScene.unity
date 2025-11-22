@@ -604,7 +604,7 @@ MonoBehaviour:
   - {fileID: 4004907548030470941, guid: a707de8f32d610b4980541270f030412, type: 3}
   maxActiveItems: 10
   spawnInterval: 2
-  spawnArea: {fileID: 0}
+  spawnArea: {fileID: 1141341606}
 --- !u!4 &955173872
 Transform:
   m_ObjectHideFlags: 0
@@ -748,8 +748,8 @@ Transform:
   m_GameObject: {fileID: 1141341605}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0324, y: -1.9379, z: 0}
-  m_LocalScale: {x: 15.8617935, y: 6.1241, z: 1}
+  m_LocalPosition: {x: 0.0247, y: -0.9584, z: 0}
+  m_LocalScale: {x: 17.838997, y: 8.0832, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -936,7 +936,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -854, y: 554}
+  m_AnchoredPosition: {x: -854, y: 507}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1600558785
@@ -1072,7 +1072,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -854, y: 514}
+  m_AnchoredPosition: {x: -854, y: 467}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1908602471
@@ -1226,8 +1226,9 @@ MonoBehaviour:
   swingSpeed: 1
   shootSpeed: 5
   baseReturnSpeed: 5
-  minReturnSpeed: 5
   maxDistance: 10
+  netSpreadRadius: 0.4
+  useRandomSpread: 1
 --- !u!120 &1919488155
 LineRenderer:
   serializedVersion: 2
@@ -1416,7 +1417,7 @@ Transform:
   m_GameObject: {fileID: 2110062573}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.01, y: 1.65, z: 0}
+  m_LocalPosition: {x: 0.01, y: 3.65, z: 0}
   m_LocalScale: {x: 6.4117, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

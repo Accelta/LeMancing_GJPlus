@@ -15,4 +15,7 @@ public class CatchableItemData : ScriptableObject
 
     [Header("Gameplay")]
     public float weight = 1f;     // You could use this later to slow down return speed
+
+    [Header("Movement")]
+    public float swimSpeed = 2f;
 }

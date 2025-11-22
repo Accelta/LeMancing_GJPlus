@@ -17,4 +17,4 @@ MonoBehaviour:
   scoreValue: 10
   isHazard: 0
   damageAmount: 1
-  weight: 50
+  weight: 1.5

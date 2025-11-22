@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -4014394522964803833}
   - component: {fileID: 4004907548030470941}
   - component: {fileID: 8545152101972378402}
+  - component: {fileID: -1027385264056374520}
   m_Layer: 0
   m_Name: Fishe
   m_TagString: Untagged
@@ -168,3 +169,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &-1027385264056374520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7065812588106689917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08972450e8265f749b0a89682c91a7d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 2
+  leftLimit: -8
+  rightLimit: 8
