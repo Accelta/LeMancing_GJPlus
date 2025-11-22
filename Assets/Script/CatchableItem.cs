@@ -6,7 +6,14 @@ public class CatchableItem : MonoBehaviour
     public CatchableItemData data;
 
     [HideInInspector]
-    public CatchableSpawner spawner; // <- new
+    public CatchableSpawner spawner;
+
+    public bool IsCaught { get; private set; }   // <- NEW
+
+    public void SetCaught(bool caught)          // <- NEW
+    {
+        IsCaught = caught;
+    }
 
     private void Start()
     {

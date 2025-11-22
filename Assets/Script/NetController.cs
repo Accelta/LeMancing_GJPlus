@@ -20,6 +20,10 @@ public class NetController : MonoBehaviour
     private Vector3 netStartLocalPos;
     private float swingTimeOffset;
 
+    [Header("Net Catch Layout")]
+public float netSpreadRadius = 0.4f;    // how far from center items can be
+public bool useRandomSpread = true;     // random vs arranged
+
     private enum NetState { Swinging, Shooting, Returning }
     private NetState state = NetState.Swinging;
 
@@ -129,27 +133,49 @@ private void UpdateReturning()
     }
 }
 
-    public void CatchItem(CatchableItem item)
+public void CatchItem(CatchableItem item)
+{
+    if (state == NetState.Swinging) return;
+    if (item == null || caughtItems.Contains(item)) return;
+
+    caughtItems.Add(item);
+    item.transform.SetParent(netHead);
+
+    // mark as caught so movement scripts stop
+    item.SetCaught(true);
+
+    // place item somewhere within the net area (local space)
+    Vector3 localPos;
+
+    if (useRandomSpread)
     {
-        // ignore if we are not in shooting or returning
-        if (state == NetState.Swinging) return;
-        if (item == null || caughtItems.Contains(item)) return;
-
-        caughtItems.Add(item);
-        item.transform.SetParent(netHead);
-        item.transform.localPosition = Vector3.zero;
-
-        RecalculateReturnSpeed();
-
-        // if we were still shooting, we can either
-        // 1) immediately return, OR
-        // 2) let it keep going and collect more.
-        // Pick 1) for "hook" feel, comment this if you want it to go to maxDistance:
-        if (state == NetState.Shooting)
-        {
-            state = NetState.Returning;
-        }
+        // random position in a small circle around the center
+        Vector2 rand = Random.insideUnitCircle * netSpreadRadius;
+        localPos = new Vector3(rand.x, rand.y, 0f);
     }
+    else
+    {
+        // arranged in a circle based on index
+        int count = caughtItems.Count;
+        float angle = (count - 1) * Mathf.PI * 2f / Mathf.Max(1, count);
+        float r = netSpreadRadius;
+        localPos = new Vector3(Mathf.Cos(angle) * r, Mathf.Sin(angle) * r, 0f);
+    }
+
+    item.transform.localPosition = localPos;
+
+    // Optional: reset rotation so sprites look upright on the net
+    item.transform.localRotation = Quaternion.identity;
+
+    RecalculateReturnSpeed();
+
+    // choose behaviour: immediately return when at least 1 item is caught
+    if (state == NetState.Shooting)
+    {
+        state = NetState.Returning;
+    }
+}
+
 
     private void RecalculateReturnSpeed()
     {
