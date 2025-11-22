@@ -2,16 +2,24 @@ using UnityEngine;
 
 public class NetController : MonoBehaviour
 {
-    public Transform netHead;          // The net tip object (child of NetPivot)
-    public float swingAngle = 60f;     // Max angle left/right
-    public float swingSpeed = 2f;      // How fast it swings
-    public float shootSpeed = 5f;      // Speed when going out
-    public float returnSpeed = 5f;     // Speed when coming back
-    public float maxDistance = 5f;     // Max length of the rope/net
+    [Header("Net References")]
+    public Transform netHead;
+    public LineRenderer rope;          // <- new
 
-    private Vector3 netStartLocalPos;  // Local start position relative to pivot
+    [Header("Swing")]
+    public float swingAngle = 60f;
+    public float swingSpeed = 2f;
+
+    [Header("Movement")]
+    public float shootSpeed = 5f;
+    public float baseReturnSpeed = 5f; // <- base speed when no weight
+    public float minReturnSpeed = 1f;  // <- clamp so it never becomes too slow
+    public float maxDistance = 5f;
+
+    private float currentReturnSpeed;
+    private Vector3 netStartLocalPos;
     private float swingTimeOffset;
-    
+
     private enum NetState { Swinging, Shooting, Returning }
     private NetState state = NetState.Swinging;
 
@@ -20,13 +28,26 @@ public class NetController : MonoBehaviour
     private void Start()
     {
         netStartLocalPos = netHead.localPosition;
-        swingTimeOffset = Random.Range(0f, 10f); // Just to desync multiple nets if needed
+        swingTimeOffset = Random.Range(0f, 10f);
+
+        currentReturnSpeed = baseReturnSpeed;
+
+        // If you forgot to assign rope, try to get it
+        if (rope == null)
+        {
+            rope = GetComponent<LineRenderer>();
+        }
     }
 
     private void Update()
     {
         HandleInput();
         UpdateNetState();
+    }
+
+    private void LateUpdate()
+    {
+        UpdateRope();
     }
 
     private void HandleInput()
@@ -58,17 +79,16 @@ public class NetController : MonoBehaviour
 
     private void UpdateSwing()
     {
-        // Rotate pivot like a pendulum
         float angle = Mathf.Sin((Time.time + swingTimeOffset) * swingSpeed) * swingAngle;
         transform.rotation = Quaternion.Euler(0f, 0f, angle);
-
-        // Keep net head at start local position (so only rotation changes)
         netHead.localPosition = netStartLocalPos;
+
+        // No item caught = default return speed
+        currentReturnSpeed = baseReturnSpeed;
     }
 
     private void UpdateShooting()
     {
-        // Move net along its local down direction
         netHead.Translate(Vector3.down * shootSpeed * Time.deltaTime, Space.Self);
 
         float dist = Vector3.Distance(transform.position, netHead.position);
@@ -80,16 +100,14 @@ public class NetController : MonoBehaviour
 
     private void UpdateReturning()
     {
-        // Move net head back to start local position
         netHead.localPosition = Vector3.MoveTowards(
             netHead.localPosition,
             netStartLocalPos,
-            returnSpeed * Time.deltaTime
+            currentReturnSpeed * Time.deltaTime
         );
 
         if (netHead.localPosition == netStartLocalPos)
         {
-            // Reached pivot => resolve catch if we have one
             if (caughtItem != null)
             {
                 GameManager.Instance.ResolveCatch(caughtItem);
@@ -104,14 +122,33 @@ public class NetController : MonoBehaviour
     public void CatchItem(CatchableItem item)
     {
         if (state != NetState.Shooting) return;
-        if (caughtItem != null) return; // Already have something
+        if (caughtItem != null) return;
 
         caughtItem = item;
-        // Parent item to net head so it follows
         caughtItem.transform.SetParent(netHead);
-        // Optional: align it
         caughtItem.transform.localPosition = Vector3.zero;
 
+        // Adjust return speed based on item weight
+        if (caughtItem.data != null)
+        {
+            float weight = Mathf.Max(0.1f, caughtItem.data.weight);
+            float speed = baseReturnSpeed / weight;
+            currentReturnSpeed = Mathf.Max(minReturnSpeed, speed);
+        }
+        else
+        {
+            currentReturnSpeed = baseReturnSpeed;
+        }
+
         state = NetState.Returning;
+    }
+
+    private void UpdateRope()
+    {
+        if (rope == null) return;
+
+        rope.positionCount = 2;
+        rope.SetPosition(0, transform.position);  // pivot
+        rope.SetPosition(1, netHead.position);    // net head
     }
 }
