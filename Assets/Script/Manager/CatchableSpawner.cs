@@ -10,9 +10,8 @@ public class CatchableSpawner : MonoBehaviour
     public int maxActiveItems = 10;
     public float spawnInterval = 2f;
 
-    [Tooltip("Min X,Y and Max X,Y world positions for random spawn area")]
-    public Vector2 areaMin = new Vector2(-5f, -3f);
-    public Vector2 areaMax = new Vector2(5f, 1f);
+    [Header("Spawn Area")]
+    public BoxCollider2D spawnArea;   // <- assign your invisible box here
 
     private float spawnTimer;
     private List<CatchableItem> activeItems = new List<CatchableItem>();
@@ -24,7 +23,7 @@ public class CatchableSpawner : MonoBehaviour
 
     private void Update()
     {
-        // Clean up null entries (destroyed items)
+        // Clean null entries
         for (int i = activeItems.Count - 1; i >= 0; i--)
         {
             if (activeItems[i] == null)
@@ -44,18 +43,22 @@ public class CatchableSpawner : MonoBehaviour
     private void SpawnItem()
     {
         if (itemPrefabs == null || itemPrefabs.Length == 0) return;
+        if (spawnArea == null)
+        {
+            Debug.LogWarning("CatchableSpawner: spawnArea is not assigned!");
+            return;
+        }
 
-        // Choose random prefab
         int index = Random.Range(0, itemPrefabs.Length);
         CatchableItem prefab = itemPrefabs[index];
 
-        // Random position in area
-        float x = Random.Range(areaMin.x, areaMax.x);
-        float y = Random.Range(areaMin.y, areaMax.y);
+        Bounds b = spawnArea.bounds;
+        float x = Random.Range(b.min.x, b.max.x);
+        float y = Random.Range(b.min.y, b.max.y);
         Vector3 pos = new Vector3(x, y, 0f);
 
         CatchableItem instance = Instantiate(prefab, pos, Quaternion.identity);
-        instance.spawner = this;      // so it can notify when destroyed
+        instance.spawner = this;
         activeItems.Add(instance);
     }
 
