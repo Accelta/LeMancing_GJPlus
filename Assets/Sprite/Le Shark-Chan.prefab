@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 4004907548030470941}
   - component: {fileID: 8545152101972378402}
   - component: {fileID: -1027385264056374520}
-  - component: {fileID: 2283163670314937984}
+  - component: {fileID: 3199408795285696945}
   m_Layer: 0
-  m_Name: Le Gatul
+  m_Name: Le Shark-Chan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee2e93b86006a5948adfb118eb5e5a54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: e84fc07f4bf3e0a478436713e035fcf8, type: 2}
+  data: {fileID: 11400000, guid: 416d38893069b6846bf9d9c4fb264c4b, type: 2}
   spawner: {fileID: 0}
 --- !u!50 &8545152101972378402
 Rigidbody2D:
@@ -148,7 +148,7 @@ MonoBehaviour:
   minChangeTargetTime: 1
   maxChangeTargetTime: 3
   arriveDistance: 0.1
---- !u!61 &2283163670314937984
+--- !u!61 &3199408795285696945
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178,11 +178,11 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.9759722, y: -0.1554997}
+  m_Offset: {x: -0.051948786, y: 0.47571117}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -192,5 +192,5 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 7.4398766, y: 2.7168245}
+  m_Size: {x: 7.2339053, y: 2.2995443}
   m_EdgeRadius: 0
