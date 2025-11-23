@@ -470,7 +470,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Score  :'
+  m_text: 'Wave :
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 89e1c3a4fcdf2ee4c920e3610e7cdea0, type: 2}
   m_sharedMaterial: {fileID: -5816047900139830162, guid: 89e1c3a4fcdf2ee4c920e3610e7cdea0, type: 2}
@@ -693,7 +695,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Health : '
+  m_text: 'Timer :
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 89e1c3a4fcdf2ee4c920e3610e7cdea0, type: 2}
   m_sharedMaterial: {fileID: -5816047900139830162, guid: 89e1c3a4fcdf2ee4c920e3610e7cdea0, type: 2}
@@ -5450,7 +5454,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Health : '
+  m_text: 'Objective :
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 89e1c3a4fcdf2ee4c920e3610e7cdea0, type: 2}
   m_sharedMaterial: {fileID: -5816047900139830162, guid: 89e1c3a4fcdf2ee4c920e3610e7cdea0, type: 2}
