@@ -18,12 +18,16 @@ public class GameManager : MonoBehaviour
     public int startingWave = 1;
     public float waveDuration = 60f;          // seconds per wave
     public int baseWaveTargetScore = 100;     // objective for wave 1
-    public int targetScoreIncreasePerWave = 50; // how much objective bumps each wave
+     public float waveScoreMultiplier = 1.5f;
 
     [Header("Wave UI")]
     public TextMeshProUGUI waveText;
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI objectiveText;
+
+    [Header("Difficulty")]
+    [Tooltip("How much fish speed scales per wave (1 = no change, 1.2 = +20% per wave)")]
+    public float fishSpeedMultiplierPerWave = 1.2f;
 
     // runtime wave data
     private int currentWave;
@@ -62,19 +66,19 @@ public class GameManager : MonoBehaviour
     // =========================
     // WAVE SYSTEM
     // =========================
-    private void StartWave(int waveIndex)
-    {
-        currentWave = waveIndex;
-        waveTimer = waveDuration;
-        waveScore = 0;
+private void StartWave(int waveIndex)
+{
+    currentWave = waveIndex;
+    waveTimer = waveDuration;
+    waveScore = 0;
 
-        currentWaveTargetScore =
-            baseWaveTargetScore + (currentWave - 1) * targetScoreIncreasePerWave;
+    // Multiplicative wave scaling
+    currentWaveTargetScore = Mathf.CeilToInt(
+        baseWaveTargetScore * Mathf.Pow(waveScoreMultiplier, currentWave - 1)
+    );
 
-        // Could play a wave start SFX or show a banner here
-        // SoundManager.PlaySFX("WaveStart");
-        UpdateUI();
-    }
+    UpdateUI();
+}
 
     private void UpdateWaveTimer()
     {
@@ -216,4 +220,13 @@ public class GameManager : MonoBehaviour
         int seconds = t % 60;
         return $"{minutes:00}:{seconds:00}";
     }
+
+    public float GetFishSpeedMultiplier()
+{
+    // If you start at wave 1, we want 1x on wave 1
+    if (currentWave <= 1) return 1f;
+
+    // Multiplicative growth: 1.2, 1.44, 1.73, etc if multiplier = 1.2
+    return Mathf.Pow(fishSpeedMultiplierPerWave, currentWave - 1);
+}
 }
