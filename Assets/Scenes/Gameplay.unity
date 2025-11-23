@@ -3975,6 +3975,8 @@ MonoBehaviour:
     probability: 0.75
   - prefab: {fileID: 4004907548030470941, guid: 47ddcc55553568f48a8b0d98bd2c6e3c, type: 3}
     probability: 0.75
+  - prefab: {fileID: 4004907548030470941, guid: b653fcedc155bc94ca82e5bf1883d22e, type: 3}
+    probability: 0.25
   maxActiveItems: 30
   spawnInterval: 2
   spawnArea: {fileID: 1141341606}
