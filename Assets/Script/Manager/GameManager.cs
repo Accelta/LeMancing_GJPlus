@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class GameManager : MonoBehaviour
     public int startingWave = 1;
     public float waveDuration = 60f;          // seconds per wave
     public int baseWaveTargetScore = 100;     // objective for wave 1
-     public float waveScoreMultiplier = 1.5f;
+    public float waveScoreMultiplier = 1.5f;
 
     [Header("Wave UI")]
     public TextMeshProUGUI waveText;
@@ -36,6 +37,17 @@ public class GameManager : MonoBehaviour
     private int waveScore;          // score earned in THIS wave only
     private bool isGameOver;
 
+    // blinking timer fields
+    [Header("Timer blink settings")]
+    [Tooltip("When timer <= this value (seconds) the timer text will start blinking red.")]
+    public float blinkThreshold = 30f;
+    [Tooltip("Blink interval in seconds.")]
+    public float blinkInterval = 0.5f;
+
+    private Coroutine blinkCoroutine;
+    private bool isBlinking;
+    private Color timerOriginalColor;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -52,6 +64,10 @@ public class GameManager : MonoBehaviour
         currentScore = 0;
         isGameOver = false;
 
+        // cache original color
+        if (timerText != null)
+            timerOriginalColor = timerText.color;
+
         StartWave(startingWave);
         UpdateUI();
     }
@@ -66,19 +82,20 @@ public class GameManager : MonoBehaviour
     // =========================
     // WAVE SYSTEM
     // =========================
-private void StartWave(int waveIndex)
-{
-    currentWave = waveIndex;
-    waveTimer = waveDuration;
-    waveScore = 0;
+    private void StartWave(int waveIndex)
+    {
+        currentWave = waveIndex;
+        waveTimer = waveDuration;
+        waveScore = 0;
 
-    // Multiplicative wave scaling
-    currentWaveTargetScore = Mathf.CeilToInt(
-        baseWaveTargetScore * Mathf.Pow(waveScoreMultiplier, currentWave - 1)
-    );
+        // Multiplicative wave scaling
+        currentWaveTargetScore = Mathf.CeilToInt(
+            baseWaveTargetScore * Mathf.Pow(waveScoreMultiplier, currentWave - 1)
+        );
 
-    UpdateUI();
-}
+        StopBlinkingIfNeeded(); // ensure timer color/reset on new wave
+        UpdateUI();
+    }
 
     private void UpdateWaveTimer()
     {
@@ -88,9 +105,24 @@ private void StartWave(int waveIndex)
 
         UpdateWaveUI();
 
+        // handle blinking start/stop
+        if (timerText != null && !isGameOver)
+        {
+            if (waveTimer <= blinkThreshold && waveTimer > 0f)
+            {
+                StartBlinkingIfNeeded();
+            }
+            else
+            {
+                StopBlinkingIfNeeded();
+            }
+        }
+
         // Time up: check if player met objective
         if (waveTimer <= 0f)
         {
+            StopBlinkingIfNeeded();
+
             if (waveScore >= currentWaveTargetScore)
             {
                 // Wave cleared just in time
@@ -181,6 +213,7 @@ private void StartWave(int waveIndex)
         if (isGameOver) return;
 
         isGameOver = true;
+        StopBlinkingIfNeeded();
         Debug.Log("Game Over!");
         // TODO: show game over UI, restart, etc.
         // SoundManager.PlaySFX("GameOver");
@@ -222,11 +255,61 @@ private void StartWave(int waveIndex)
     }
 
     public float GetFishSpeedMultiplier()
-{
-    // If you start at wave 1, we want 1x on wave 1
-    if (currentWave <= 1) return 1f;
+    {
+        // If you start at wave 1, we want 1x on wave 1
+        if (currentWave <= 1) return 1f;
 
-    // Multiplicative growth: 1.2, 1.44, 1.73, etc if multiplier = 1.2
-    return Mathf.Pow(fishSpeedMultiplierPerWave, currentWave - 1);
-}
+        // Multiplicative growth: 1.2, 1.44, 1.73, etc if multiplier = 1.2
+        return Mathf.Pow(fishSpeedMultiplierPerWave, currentWave - 1);
+    }
+
+    // =========================
+    // Timer blinking helpers
+    // =========================
+    private void StartBlinkingIfNeeded()
+    {
+        if (isBlinking) return;
+        if (timerText == null) return;
+
+        // cache original color if not cached
+        timerOriginalColor = timerText.color;
+        isBlinking = true;
+        blinkCoroutine = StartCoroutine(BlinkTimerText());
+    }
+
+    private void StopBlinkingIfNeeded()
+    {
+        if (!isBlinking) return;
+
+        isBlinking = false;
+        if (blinkCoroutine != null)
+        {
+            StopCoroutine(blinkCoroutine);
+            blinkCoroutine = null;
+        }
+
+        // restore original color
+        if (timerText != null)
+            timerText.color = timerOriginalColor;
+    }
+
+    private IEnumerator BlinkTimerText()
+    {
+        if (timerText == null) yield break;
+
+        Color red = Color.red;
+        while (isBlinking)
+        {
+            timerText.color = red;
+            yield return new WaitForSeconds(blinkInterval);
+            if (!isBlinking) break;
+
+            timerText.color = timerOriginalColor;
+            yield return new WaitForSeconds(blinkInterval);
+        }
+
+        // ensure restored
+        if (timerText != null)
+            timerText.color = timerOriginalColor;
+    }
 }

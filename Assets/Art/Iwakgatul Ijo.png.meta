@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 621db38b75e9ee74a819ab08b5db28cd
+guid: 874d919d21e08d84e8e930c6a463766c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3993955984879467766
-    second: manuk_0
+      213: -4537861208230812278
+    second: Iwakgatul Ijo_0
   - first:
-      213: 7938650709733995410
-    second: manuk_1
+      213: 4091092663924459243
+    second: Iwakgatul Ijo_1
   - first:
-      213: 16116574733058815
-    second: manuk_2
+      213: -1538943637260263168
+    second: Iwakgatul Ijo_2
   - first:
-      213: -2123426440537692883
-    second: manuk_3
+      213: 1022093126304392415
+    second: Iwakgatul Ijo_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,89 +109,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: manuk_0
+      name: Iwakgatul Ijo_0
       rect:
         serializedVersion: 2
-        x: 218
-        y: 79
-        width: 274
-        height: 243
+        x: 29
+        y: 15
+        width: 77
+        height: 35
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6fc394faec16d6730800000000000000
-      internalID: 3993955984879467766
+      spriteID: a85a06316474601c0800000000000000
+      internalID: -4537861208230812278
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: manuk_1
+      name: Iwakgatul Ijo_1
       rect:
         serializedVersion: 2
-        x: 985
-        y: 79
-        width: 274
-        height: 243
+        x: 157
+        y: 15
+        width: 65
+        height: 35
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 293f89d72c0cb2e60800000000000000
-      internalID: 7938650709733995410
+      spriteID: be68c603a1b76c830800000000000000
+      internalID: 4091092663924459243
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: manuk_2
+      name: Iwakgatul Ijo_2
       rect:
         serializedVersion: 2
-        x: 1755
-        y: 79
-        width: 274
-        height: 243
+        x: 285
+        y: 15
+        width: 63
+        height: 35
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ff2c5f770f1493000800000000000000
-      internalID: 16116574733058815
+      spriteID: 00121c36ae294aae0800000000000000
+      internalID: -1538943637260263168
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: manuk_3
+      name: Iwakgatul Ijo_3
       rect:
         serializedVersion: 2
-        x: 2523
-        y: 79
-        width: 274
-        height: 243
+        x: 413
+        y: 15
+        width: 65
+        height: 35
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d25241917e21882e0800000000000000
-      internalID: -2123426440537692883
+      spriteID: fd4edb878443f2e00800000000000000
+      internalID: 1022093126304392415
       vertices: []
       indices: 
       edges: []
@@ -200,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: f3a2d39cd8a838a42a348d5e0cabcaae
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -210,10 +210,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      manuk_0: 3993955984879467766
-      manuk_1: 7938650709733995410
-      manuk_2: 16116574733058815
-      manuk_3: -2123426440537692883
+      Iwakgatul Ijo_0: -4537861208230812278
+      Iwakgatul Ijo_1: 4091092663924459243
+      Iwakgatul Ijo_2: -1538943637260263168
+      Iwakgatul Ijo_3: 1022093126304392415
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

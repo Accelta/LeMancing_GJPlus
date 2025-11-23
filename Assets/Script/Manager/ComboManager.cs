@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +15,13 @@ public class ComboEntry
 
     [Tooltip("Optional AudioClip to play when this combo level is reached")]
     public AudioClip clip;
+
+    [Header("Optional per-entry animation")]
+    [Tooltip("Optional Animator trigger name to fire when this entry becomes active. If empty, the global defaultTrigger is used.")]
+    public string animatorTrigger;
+
+    [Tooltip("Optional legacy Animation clip name to play on the combo UI (used if Animator isn't assigned).")]
+    public string legacyAnimationClipName;
 }
 
 public class ComboManager : MonoBehaviour
@@ -37,6 +43,15 @@ public class ComboManager : MonoBehaviour
     public float uiPulseScale = 1.4f;
     [Tooltip("How fast the pulse eases back.")]
     public float uiPulseSpeed = 6f;
+
+    [Header("Animation (optional)")]
+    [Tooltip("Animator that controls your combo UI. If assigned, triggers will be fired on increment.")]
+    public Animator comboAnimator;
+    [Tooltip("Default trigger name to use when a ComboEntry doesn't specify one.")]
+    public string defaultAnimatorTrigger = "Play";
+
+    [Tooltip("If no Animator is assigned, this will try to play legacy Animation clips on the comboText or comboIcon GameObjects.")]
+    public Animation comboLegacyAnimation; // optional: a legacy Animation component you may attach
 
     [Header("Fallback audio (if an entry doesn't have a clip)")]
     public AudioClip fallbackIncrementClip;
@@ -112,6 +127,9 @@ public class ComboManager : MonoBehaviour
 
         // play clip defined for this entry or fallback
         PlayEntryClip(currentCombo);
+
+        // play animation for this combo entry
+        PlayComboAnimation(currentCombo);
     }
 
     private void ShowComboUI()
@@ -196,6 +214,81 @@ public class ComboManager : MonoBehaviour
             else if (fallbackIncrementClip != null)
                 fallbackSource.PlayOneShot(fallbackIncrementClip);
         }
+    }
+
+    private void PlayComboAnimation(int comboCount)
+    {
+        if (comboEntries == null || comboEntries.Count == 0) return;
+
+        int entryIndex = Mathf.Clamp(comboCount - 1, 0, comboEntries.Count - 1);
+        var entry = comboEntries[entryIndex];
+
+        // 1) Animator path (recommended)
+        if (comboAnimator != null)
+        {
+            string triggerToUse = !string.IsNullOrEmpty(entry.animatorTrigger) ? entry.animatorTrigger : defaultAnimatorTrigger;
+
+            // Defensive: check that parameter exists (best-effort)
+            // Note: Animator.HasState can't check triggers directly in a portable way, we will just SetTrigger.
+            comboAnimator.SetTrigger(triggerToUse);
+            return;
+        }
+
+        // 2) Legacy Animation component on a provided Animation component reference
+        if (comboLegacyAnimation != null)
+        {
+            string clipName = !string.IsNullOrEmpty(entry.legacyAnimationClipName) ? entry.legacyAnimationClipName : null;
+            if (!string.IsNullOrEmpty(clipName) && comboLegacyAnimation.GetClip(clipName) != null)
+            {
+                comboLegacyAnimation.Play(clipName);
+                return;
+            }
+        }
+
+        // 3) Try an Animation component on the comboText GameObject
+        if (comboText != null)
+        {
+            var anim = comboText.GetComponent<Animation>();
+            if (anim != null)
+            {
+                string clipName = !string.IsNullOrEmpty(entry.legacyAnimationClipName) ? entry.legacyAnimationClipName : null;
+                if (!string.IsNullOrEmpty(clipName) && anim.GetClip(clipName) != null)
+                {
+                    anim.Play(clipName);
+                    return;
+                }
+
+                // otherwise try playing the default clip if available
+                if (anim.clip != null)
+                {
+                    anim.Play();
+                    return;
+                }
+            }
+        }
+
+        // 4) Try an Animation component on the comboIcon GameObject
+        if (comboIcon != null)
+        {
+            var anim = comboIcon.GetComponent<Animation>();
+            if (anim != null)
+            {
+                string clipName = !string.IsNullOrEmpty(entry.legacyAnimationClipName) ? entry.legacyAnimationClipName : null;
+                if (!string.IsNullOrEmpty(clipName) && anim.GetClip(clipName) != null)
+                {
+                    anim.Play(clipName);
+                    return;
+                }
+
+                if (anim.clip != null)
+                {
+                    anim.Play();
+                    return;
+                }
+            }
+        }
+
+        // If nothing found, do nothing — UI pulse already provides visual feedback
     }
 
     private void ResetCombo()
