@@ -2349,8 +2349,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcf533f116ac19e419ee0676809024ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 3
-  currentHealth: 0
   currentScore: 0
   scoreText: {fileID: 1600558785}
   healthText: {fileID: 1908602471}
@@ -5547,7 +5545,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1908602470
 RectTransform:
   m_ObjectHideFlags: 0
