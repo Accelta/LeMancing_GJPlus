@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI healthText;
 
+    public GameOverUI gameOverUI;
+    
+
     [Header("Wave System Settings")]
     public int startingWave = 1;
     public float waveDuration = 60f;          // seconds per wave
@@ -25,6 +28,10 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI waveText;
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI objectiveText;
+
+    [Header("Game Over Panel")]
+    public GameObject gameOverPanel;
+
 
     [Header("Difficulty")]
     [Tooltip("How much fish speed scales per wave (1 = no change, 1.2 = +20% per wave)")]
@@ -49,14 +56,22 @@ public class GameManager : MonoBehaviour
     private Color timerOriginalColor;
 
     private void Awake()
+{
+    if (Instance != null && Instance != this)
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
+        Destroy(gameObject);
+        return;
     }
+    Instance = this;
+
+    // fallback: try to find GameOverUI automatically if not assigned in inspector
+    if (gameOverUI == null)
+    {
+        gameOverUI = FindObjectOfType<GameOverUI>();
+        if (gameOverUI != null)
+            Debug.Log("GameManager: auto-found GameOverUI via FindObjectOfType");
+    }
+}  
 
     private void Start()
     {
@@ -208,16 +223,26 @@ public class GameManager : MonoBehaviour
     //     }
     // }
 
-    private void GameOver()
-    {
-        if (isGameOver) return;
+private void GameOver()
+{
+    if (isGameOver) return;
 
-        isGameOver = true;
-        StopBlinkingIfNeeded();
-        Debug.Log("Game Over!");
-        // TODO: show game over UI, restart, etc.
-        // SoundManager.PlaySFX("GameOver");
-    }
+    isGameOver = true;
+    StopBlinkingIfNeeded();
+    Debug.Log("Game Over!");
+
+    // ⭐ Freeze the entire game ⭐
+    Time.timeScale = 0f;
+
+    // Show the panel
+    if (gameOverPanel != null)
+        gameOverPanel.SetActive(true);
+
+    // Show score/wave info on UI panel
+    if (gameOverUI != null)
+        gameOverUI.ShowGameOver(currentScore, currentWave);
+} 
+
 
     // =========================
     // UI
