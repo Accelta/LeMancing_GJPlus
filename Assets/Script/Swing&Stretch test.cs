@@ -243,6 +243,8 @@ public class NetController : MonoBehaviour
         if (totalWeight <= 0f) totalWeight = 1f;
 
         currentReturnSpeed = baseReturnSpeed / totalWeight;
+#if UNITY_EDITOR
         Debug.Log("[NetController] Total weight: " + totalWeight + " returnSpeed: " + currentReturnSpeed);
+#endif
     }
 }

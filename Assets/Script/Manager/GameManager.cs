@@ -7,8 +7,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     [Header("Player Stats")]
-    public int startingHealth = 3;
-    public int currentHealth;
+    // public int startingHealth = 3;
+    // public int currentHealth;
     public int currentScore;
 
     [Header("UI")]
@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        currentHealth = startingHealth;
+        // currentHealth = startingHealth;
         currentScore = 0;
         isGameOver = false;
 
@@ -163,7 +163,7 @@ public class GameManager : MonoBehaviour
 
         if (data.isHazard)
         {
-            ApplyDamage(data.damageAmount);
+            // ApplyDamage(data.damageAmount);
         }
         else
         {
@@ -193,20 +193,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ApplyDamage(int damage)
-    {
-        if (isGameOver) return;
+    // public void ApplyDamage(int damage)
+    // {
+    //     if (isGameOver) return;
 
-        currentHealth -= damage;
-        if (currentHealth < 0) currentHealth = 0;
+    //     currentHealth -= damage;
+    //     if (currentHealth < 0) currentHealth = 0;
 
-        UpdateUI();
+    //     UpdateUI();
 
-        if (currentHealth <= 0)
-        {
-            GameOver();
-        }
-    }
+    //     if (currentHealth <= 0)
+    //     {
+    //         GameOver();
+    //     }
+    // }
 
     private void GameOver()
     {
@@ -227,8 +227,8 @@ public class GameManager : MonoBehaviour
         if (scoreText != null)
             scoreText.text = "Score: " + currentScore;
 
-        if (healthText != null)
-            healthText.text = "Health: " + currentHealth;
+        // if (healthText != null)
+        //     healthText.text = "Health: " + currentHealth;
 
         UpdateWaveUI();
     }
