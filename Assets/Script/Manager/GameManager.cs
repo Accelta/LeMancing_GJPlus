@@ -25,6 +25,10 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI objectiveText;
 
+    [Header("Difficulty")]
+    [Tooltip("How much fish speed scales per wave (1 = no change, 1.2 = +20% per wave)")]
+    public float fishSpeedMultiplierPerWave = 1.2f;
+
     // runtime wave data
     private int currentWave;
     private int currentWaveTargetScore;
@@ -216,4 +220,13 @@ private void StartWave(int waveIndex)
         int seconds = t % 60;
         return $"{minutes:00}:{seconds:00}";
     }
+
+    public float GetFishSpeedMultiplier()
+{
+    // If you start at wave 1, we want 1x on wave 1
+    if (currentWave <= 1) return 1f;
+
+    // Multiplicative growth: 1.2, 1.44, 1.73, etc if multiplier = 1.2
+    return Mathf.Pow(fishSpeedMultiplierPerWave, currentWave - 1);
+}
 }

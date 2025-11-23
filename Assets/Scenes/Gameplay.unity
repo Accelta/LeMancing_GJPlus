@@ -2361,6 +2361,7 @@ MonoBehaviour:
   waveText: {fileID: 176482991}
   timerText: {fileID: 252553324}
   objectiveText: {fileID: 1857358034}
+  fishSpeedMultiplierPerWave: 1.2
 --- !u!4 &953832457
 Transform:
   m_ObjectHideFlags: 0
@@ -2410,7 +2411,7 @@ MonoBehaviour:
   - {fileID: 4004907548030470941, guid: a707de8f32d610b4980541270f030412, type: 3}
   - {fileID: 4004907548030470941, guid: 589e93f5adf2215449c74caea34368da, type: 3}
   - {fileID: 4004907548030470941, guid: 47ddcc55553568f48a8b0d98bd2c6e3c, type: 3}
-  maxActiveItems: 10
+  maxActiveItems: 30
   spawnInterval: 2
   spawnArea: {fileID: 1141341606}
 --- !u!4 &955173872
@@ -3418,8 +3419,8 @@ MonoBehaviour:
   swingTimeOffset: 0
   idleLength: 1
   maxLength: 20
-  extendSpeed: 5
-  baseReturnSpeed: 5
+  extendSpeed: 10
+  baseReturnSpeed: 10
   netSpreadRadius: 0.4
   useRandomSpread: 1
   baseVisualLength: 1

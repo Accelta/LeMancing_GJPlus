@@ -4,17 +4,17 @@ using UnityEngine;
 public class FishSwim : MonoBehaviour
 {
     [Header("Area")]
-    public BoxCollider2D swimArea;       // if null, will try to use spawner.spawnArea
+    public BoxCollider2D swimArea;
 
     [Header("Behaviour")]
     public float minChangeTargetTime = 1f;
     public float maxChangeTargetTime = 3f;
-    public float arriveDistance = 0.1f;  // when this close, pick new target
+    public float arriveDistance = 0.1f;
 
     private CatchableItem catchable;
     private SpriteRenderer sr;
     private Vector3 targetPos;
-    private float speed;
+    private float baseSpeed;       // <- base speed from data
     private float nextChangeTime;
     private Bounds bounds;
 
@@ -26,11 +26,11 @@ public class FishSwim : MonoBehaviour
 
     private void Start()
     {
-        // Get swim speed from data
+        // Get base speed from ScriptableObject
         if (catchable != null && catchable.data != null && catchable.data.swimSpeed > 0f)
-            speed = catchable.data.swimSpeed;
+            baseSpeed = catchable.data.swimSpeed;
         else
-            speed = 2f; // fallback
+            baseSpeed = 2f; // fallback
 
         // Auto-assign area from spawner if not set
         if (swimArea == null && catchable != null && catchable.spawner != null)
@@ -45,40 +45,40 @@ public class FishSwim : MonoBehaviour
         if (swimArea != null)
         {
             bounds = swimArea.bounds;
-            ClampInsideBounds();       // ensure start inside
+            ClampInsideBounds();
             PickNewTarget();
-        }
-        else
-        {
-            Debug.LogWarning("FishSwim: no swimArea assigned and no spawner.spawnArea found.");
         }
     }
 
     private void Update()
     {
-        if (catchable != null && catchable.IsCaught) return; // stop if caught
+        if (catchable != null && catchable.IsCaught) return;
         if (swimArea == null) return;
 
-        bounds = swimArea.bounds; // update in case area moves
+        bounds = swimArea.bounds;
 
         Vector3 pos = transform.position;
 
-        // Change target if close or timer elapsed
         if (Vector2.Distance(pos, targetPos) <= arriveDistance || Time.time >= nextChangeTime)
         {
             PickNewTarget();
         }
 
-        // Move toward target
+        // ----------- HERE: apply difficulty multiplier -----------
+        float speed = baseSpeed;
+        if (GameManager.Instance != null)
+        {
+            speed *= GameManager.Instance.GetFishSpeedMultiplier();
+        }
+        // ---------------------------------------------------------
+
         Vector3 dir = (targetPos - pos).normalized;
         pos += dir * speed * Time.deltaTime;
 
-        // Clamp inside area
         pos.x = Mathf.Clamp(pos.x, bounds.min.x, bounds.max.x);
         pos.y = Mathf.Clamp(pos.y, bounds.min.y, bounds.max.y);
         transform.position = pos;
 
-        // Visual flip (left/right)
         if (sr != null && Mathf.Abs(dir.x) > 0.01f)
         {
             Vector3 scale = transform.localScale;
