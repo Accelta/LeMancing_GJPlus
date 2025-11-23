@@ -1,19 +1,22 @@
 fileFormatVersion: 2
-guid: 621db38b75e9ee74a819ab08b5db28cd
+guid: ff714940187cd4a489d5e759d69adfbd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3993955984879467766
-    second: manuk_0
+      213: -4757091803473557761
+    second: Jaring_0
   - first:
-      213: 7938650709733995410
-    second: manuk_1
+      213: 6577209530626929549
+    second: Jaring_1
   - first:
-      213: 16116574733058815
-    second: manuk_2
+      213: -7496444568943309713
+    second: Jaring_2
   - first:
-      213: -2123426440537692883
-    second: manuk_3
+      213: -8947725685315404119
+    second: Jaring_3
+  - first:
+      213: 2633261626308739482
+    second: Jaring_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,89 +112,111 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: manuk_0
+      name: Jaring_0
       rect:
         serializedVersion: 2
-        x: 218
-        y: 79
-        width: 274
-        height: 243
+        x: 28
+        y: 51
+        width: 72
+        height: 50
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6fc394faec16d6730800000000000000
-      internalID: 3993955984879467766
+      spriteID: ff6490a753a6bfdb0800000000000000
+      internalID: -4757091803473557761
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: manuk_1
+      name: Jaring_1
       rect:
         serializedVersion: 2
-        x: 985
-        y: 79
-        width: 274
-        height: 243
+        x: 154
+        y: 50
+        width: 77
+        height: 51
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 293f89d72c0cb2e60800000000000000
-      internalID: 7938650709733995410
+      spriteID: d83f4567831f64b50800000000000000
+      internalID: 6577209530626929549
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: manuk_2
+      name: Jaring_2
       rect:
         serializedVersion: 2
-        x: 1755
-        y: 79
-        width: 274
-        height: 243
+        x: 280
+        y: 49
+        width: 81
+        height: 52
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ff2c5f770f1493000800000000000000
-      internalID: 16116574733058815
+      spriteID: f6c4ab5e16747f790800000000000000
+      internalID: -7496444568943309713
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: manuk_3
+      name: Jaring_3
       rect:
         serializedVersion: 2
-        x: 2523
-        y: 79
-        width: 274
-        height: 243
+        x: 404
+        y: 48
+        width: 89
+        height: 53
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d25241917e21882e0800000000000000
-      internalID: -2123426440537692883
+      spriteID: 9aef22375ea43d380800000000000000
+      internalID: -8947725685315404119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jaring_4
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 41
+        width: 65
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a91cccc5f793b8420800000000000000
+      internalID: 2633261626308739482
       vertices: []
       indices: 
       edges: []
@@ -200,7 +225,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: f3a2d39cd8a838a42a348d5e0cabcaae
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -210,10 +235,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      manuk_0: 3993955984879467766
-      manuk_1: 7938650709733995410
-      manuk_2: 16116574733058815
-      manuk_3: -2123426440537692883
+      Jaring_0: -4757091803473557761
+      Jaring_1: 6577209530626929549
+      Jaring_2: -7496444568943309713
+      Jaring_3: -8947725685315404119
+      Jaring_4: 2633261626308739482
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
