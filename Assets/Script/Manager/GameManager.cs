@@ -52,6 +52,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            SoundManager.PlaySFX("AddScore");
+            SoundManager.PlaySFX("WaterSplash");
             AddScore(data.scoreValue);
         }
     }

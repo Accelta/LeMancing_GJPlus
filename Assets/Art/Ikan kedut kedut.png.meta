@@ -1,22 +1,19 @@
 fileFormatVersion: 2
-guid: 59ac4e724b0d5d946a4f8497f6ecd668
+guid: 70a0141a72a461f4597c55dd0f26db6b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6952153195968447948
-    second: KARANG 1FIX_0
+      213: 8268621658842437737
+    second: Ikan kedut kedut_0
   - first:
-      213: -3265361988175654751
-    second: KARANG 1FIX_1
+      213: -4104966563398394580
+    second: Ikan kedut kedut_1
   - first:
-      213: -5121194773361532595
-    second: KARANG 1FIX_2
+      213: 7440533974564886105
+    second: Ikan kedut kedut_2
   - first:
-      213: -1455834586135956051
-    second: KARANG 1FIX_3
-  - first:
-      213: 864758331802958287
-    second: KARANG 1FIX_4
+      213: -2990645706946141323
+    second: Ikan kedut kedut_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -112,13 +109,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: KARANG 1FIX_0
+      name: Ikan kedut kedut_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 22
-        width: 98
-        height: 72
+        x: 30
+        y: 12
+        width: 70
+        height: 34
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -127,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cc5cbc56f720b7060800000000000000
-      internalID: 6952153195968447948
+      spriteID: 9689765f69b00c270800000000000000
+      internalID: 8268621658842437737
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KARANG 1FIX_1
+      name: Ikan kedut kedut_1
       rect:
         serializedVersion: 2
-        x: 108
-        y: 22
-        width: 98
-        height: 72
+        x: 158
+        y: 12
+        width: 70
+        height: 34
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -149,20 +146,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1a01ab7829a1fa2d0800000000000000
-      internalID: -3265361988175654751
+      spriteID: c2d58cdd8aa3807c0800000000000000
+      internalID: -4104966563398394580
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KARANG 1FIX_2
+      name: Ikan kedut kedut_2
       rect:
         serializedVersion: 2
-        x: 216
-        y: 22
-        width: 98
-        height: 72
+        x: 286
+        y: 12
+        width: 70
+        height: 34
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,20 +168,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d41e234ac7cdde8b0800000000000000
-      internalID: -5121194773361532595
+      spriteID: 9565a2d6a36124760800000000000000
+      internalID: 7440533974564886105
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KARANG 1FIX_3
+      name: Ikan kedut kedut_3
       rect:
         serializedVersion: 2
-        x: 324
-        y: 22
-        width: 98
-        height: 72
+        x: 414
+        y: 12
+        width: 70
+        height: 34
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -193,30 +190,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: da573a14826dbcbe0800000000000000
-      internalID: -1455834586135956051
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: KARANG 1FIX_4
-      rect:
-        serializedVersion: 2
-        x: 432
-        y: 22
-        width: 98
-        height: 72
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fc9bcaffe1d300c00800000000000000
-      internalID: 864758331802958287
+      spriteID: 573ad6c13971f76d0800000000000000
+      internalID: -2990645706946141323
       vertices: []
       indices: 
       edges: []
@@ -225,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 81ef5308ce6f4884cbe734c3ac4e9506
+    spriteID: 672c1a7661bd59e46b6bc8798e798847
     internalID: 0
     vertices: []
     indices: 
@@ -235,11 +210,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      KARANG 1FIX_0: 6952153195968447948
-      KARANG 1FIX_1: -3265361988175654751
-      KARANG 1FIX_2: -5121194773361532595
-      KARANG 1FIX_3: -1455834586135956051
-      KARANG 1FIX_4: 864758331802958287
+      Ikan kedut kedut_0: 8268621658842437737
+      Ikan kedut kedut_1: -4104966563398394580
+      Ikan kedut kedut_2: 7440533974564886105
+      Ikan kedut kedut_3: -2990645706946141323
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -88,6 +88,9 @@ public class NetController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
             {
+                SoundManager.PlaySFX("NetLaunch");
+                SoundManager.PlaySFX("WaterDrop");
+
                 state = NetState.Shooting;
             }
         }
@@ -186,7 +189,10 @@ public class NetController : MonoBehaviour
         if (state == NetState.Swinging) return;        // only catch while shooting/returning
         if (item == null || caughtItems.Contains(item)) return;
 
+        SoundManager.PlaySFX("CatchFish");
+
         caughtItems.Add(item);
+        ComboManager.Instance.RegisterCatch();
 
         // parent the caught item to netAtTip so it follows the net but won't be scaled by the rope
         if (netAtTip != null)
