@@ -14,6 +14,24 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI healthText;
 
+    [Header("Wave System Settings")]
+    public int startingWave = 1;
+    public float waveDuration = 60f;          // seconds per wave
+    public int baseWaveTargetScore = 100;     // objective for wave 1
+    public int targetScoreIncreasePerWave = 50; // how much objective bumps each wave
+
+    [Header("Wave UI")]
+    public TextMeshProUGUI waveText;
+    public TextMeshProUGUI timerText;
+    public TextMeshProUGUI objectiveText;
+
+    // runtime wave data
+    private int currentWave;
+    private int currentWaveTargetScore;
+    private float waveTimer;
+    private int waveScore;          // score earned in THIS wave only
+    private bool isGameOver;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -28,20 +46,81 @@ public class GameManager : MonoBehaviour
     {
         currentHealth = startingHealth;
         currentScore = 0;
+        isGameOver = false;
+
+        StartWave(startingWave);
         UpdateUI();
     }
 
-    private void UpdateUI()
+    private void Update()
     {
-        if (scoreText != null)
-            scoreText.text = "Score: " + currentScore;
+        if (isGameOver) return;
 
-        if (healthText != null)
-            healthText.text = "Health: " + currentHealth;
+        UpdateWaveTimer();
     }
 
+    // =========================
+    // WAVE SYSTEM
+    // =========================
+    private void StartWave(int waveIndex)
+    {
+        currentWave = waveIndex;
+        waveTimer = waveDuration;
+        waveScore = 0;
+
+        currentWaveTargetScore =
+            baseWaveTargetScore + (currentWave - 1) * targetScoreIncreasePerWave;
+
+        // Could play a wave start SFX or show a banner here
+        // SoundManager.PlaySFX("WaveStart");
+        UpdateUI();
+    }
+
+    private void UpdateWaveTimer()
+    {
+        waveTimer -= Time.deltaTime;
+        if (waveTimer < 0f)
+            waveTimer = 0f;
+
+        UpdateWaveUI();
+
+        // Time up: check if player met objective
+        if (waveTimer <= 0f)
+        {
+            if (waveScore >= currentWaveTargetScore)
+            {
+                // Wave cleared just in time
+                CompleteCurrentWave();
+            }
+            else
+            {
+                // Failed to reach score objective
+                WaveFailed();
+            }
+        }
+    }
+
+    private void CompleteCurrentWave()
+    {
+        // Optional: reward, heal, bonus, etc.
+        // SoundManager.PlaySFX("WaveClear");
+
+        // Next wave
+        StartWave(currentWave + 1);
+    }
+
+    private void WaveFailed()
+    {
+        Debug.Log("Wave failed: objective not met in time.");
+        GameOver();
+    }
+
+    // =========================
+    // SCORE / DAMAGE
+    // =========================
     public void ResolveCatch(CatchableItem item)
     {
+        if (isGameOver) return;
         if (item == null || item.data == null) return;
 
         var data = item.data;
@@ -60,12 +139,28 @@ public class GameManager : MonoBehaviour
 
     public void AddScore(int score)
     {
-        currentScore += score;
+        if (isGameOver) return;
+
+        currentScore += score;   // total score across game
+        waveScore += score;      // score for current wave only
+
         UpdateUI();
+        CheckWaveProgress();
+    }
+
+    private void CheckWaveProgress()
+    {
+        // If player reaches target before timer ends, immediately go to next wave
+        if (waveScore >= currentWaveTargetScore && waveTimer > 0f)
+        {
+            CompleteCurrentWave();
+        }
     }
 
     public void ApplyDamage(int damage)
     {
+        if (isGameOver) return;
+
         currentHealth -= damage;
         if (currentHealth < 0) currentHealth = 0;
 
@@ -79,7 +174,46 @@ public class GameManager : MonoBehaviour
 
     private void GameOver()
     {
+        if (isGameOver) return;
+
+        isGameOver = true;
         Debug.Log("Game Over!");
         // TODO: show game over UI, restart, etc.
+        // SoundManager.PlaySFX("GameOver");
+    }
+
+    // =========================
+    // UI
+    // =========================
+    private void UpdateUI()
+    {
+        if (scoreText != null)
+            scoreText.text = "Score: " + currentScore;
+
+        if (healthText != null)
+            healthText.text = "Health: " + currentHealth;
+
+        UpdateWaveUI();
+    }
+
+    private void UpdateWaveUI()
+    {
+        if (waveText != null)
+            waveText.text = "Wave: " + currentWave;
+
+        if (objectiveText != null)
+            objectiveText.text =
+                "Target: " + waveScore + " / " + currentWaveTargetScore;
+
+        if (timerText != null)
+            timerText.text = FormatTime(waveTimer);
+    }
+
+    private string FormatTime(float time)
+    {
+        int t = Mathf.Max(0, Mathf.CeilToInt(time));
+        int minutes = t / 60;
+        int seconds = t % 60;
+        return $"{minutes:00}:{seconds:00}";
     }
 }
