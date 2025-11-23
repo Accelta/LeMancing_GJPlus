@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     public int startingWave = 1;
     public float waveDuration = 60f;          // seconds per wave
     public int baseWaveTargetScore = 100;     // objective for wave 1
-    public int targetScoreIncreasePerWave = 50; // how much objective bumps each wave
+     public float waveScoreMultiplier = 1.5f;
 
     [Header("Wave UI")]
     public TextMeshProUGUI waveText;
@@ -62,19 +62,19 @@ public class GameManager : MonoBehaviour
     // =========================
     // WAVE SYSTEM
     // =========================
-    private void StartWave(int waveIndex)
-    {
-        currentWave = waveIndex;
-        waveTimer = waveDuration;
-        waveScore = 0;
+private void StartWave(int waveIndex)
+{
+    currentWave = waveIndex;
+    waveTimer = waveDuration;
+    waveScore = 0;
 
-        currentWaveTargetScore =
-            baseWaveTargetScore + (currentWave - 1) * targetScoreIncreasePerWave;
+    // Multiplicative wave scaling
+    currentWaveTargetScore = Mathf.CeilToInt(
+        baseWaveTargetScore * Mathf.Pow(waveScoreMultiplier, currentWave - 1)
+    );
 
-        // Could play a wave start SFX or show a banner here
-        // SoundManager.PlaySFX("WaveStart");
-        UpdateUI();
-    }
+    UpdateUI();
+}
 
     private void UpdateWaveTimer()
     {

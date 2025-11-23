@@ -2357,7 +2357,7 @@ MonoBehaviour:
   startingWave: 1
   waveDuration: 120
   baseWaveTargetScore: 10
-  targetScoreIncreasePerWave: 25
+  waveScoreMultiplier: 1.5
   waveText: {fileID: 176482991}
   timerText: {fileID: 252553324}
   objectiveText: {fileID: 1857358034}
@@ -3417,7 +3417,7 @@ MonoBehaviour:
   swingSpeed: 2
   swingTimeOffset: 0
   idleLength: 1
-  maxLength: 10
+  maxLength: 20
   extendSpeed: 5
   baseReturnSpeed: 5
   netSpreadRadius: 0.4
@@ -5563,7 +5563,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -51.2}
+  m_AnchoredPosition: {x: 0, y: -51.19995}
   m_SizeDelta: {x: 356.97363, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1908602471
